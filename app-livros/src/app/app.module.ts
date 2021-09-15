@@ -8,17 +8,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
  
 import { AppComponent } from './app.component';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { LivroInserirComponent } from './livros/livro-inserir/livro-inserir.component';
 import { FormsModule } from '@angular/forms';
+import { LivroListComponent } from './livros/livro-list/livro-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CabecalhoComponent,
-    LivroInserirComponent
+    LivroInserirComponent,
+    LivroListComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

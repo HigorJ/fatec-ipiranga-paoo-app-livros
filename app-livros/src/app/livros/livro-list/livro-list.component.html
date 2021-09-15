@@ -1,0 +1,10 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let livro of livros">
+        <mat-expansion-panel-header>
+            <mat-panel-title>Título: {{ livro.titulo }}</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p>Autor: {{ livro.autor }}</p>
+        <p>Quantidade de Páginas: {{ livro.numeroPaginas }}</p>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Livro } from '../livro.model';
 
 @Component({
   selector: 'app-livro-inserir',
@@ -7,34 +9,28 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./livro-inserir.component.css']
 })
 export class LivroInserirComponent {
-
-  id: number;
-  titulo: string;
-  autor: string;
-  numeroPaginas: number;
+  @Output() livroAdicionado = new EventEmitter<Livro>();
 
   constructor(private _snackBar: MatSnackBar) { }
 
-  onAdicionarLivro() {
-    this.abrirSnackBar();
+  onAdicionarLivro(livroForm: NgForm) {
+    if(!livroForm.invalid) {
+      this.abrirSnackBar(livroForm.value.titulo);
 
-    console.log("Livro adicionado: ", {
-      titulo: this.titulo,
-      autor: this.autor,
-      numeroPaginas: this.numeroPaginas
-    });
-
-    this.limparCampos();
+      let livro: Livro = {
+        id: livroForm.value.id,
+        titulo: livroForm.value.titulo,
+        autor: livroForm.value.autor,
+        numeroPaginas: livroForm.value.numeroPaginas
+      }
+  
+      this.livroAdicionado.emit(livro);
+      livroForm.resetForm();
+    }
   }
 
-  abrirSnackBar() {
-    this._snackBar.open(`O livro ${this.titulo} foi cadastrado com sucesso!`, "OK");
-  }
-
-  limparCampos() {
-    this.titulo = "";
-    this.autor = "";
-    this.numeroPaginas = null;
+  abrirSnackBar(titulo: string) {
+    this._snackBar.open(`O livro ${titulo} foi cadastrado com sucesso!`, "OK");
   }
 
 }
