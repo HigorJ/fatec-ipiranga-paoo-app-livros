@@ -1,4 +1,4 @@
-<mat-accordion>
+<mat-accordion *ngIf="livros.length > 0">
     <mat-expansion-panel *ngFor="let livro of livros">
         <mat-expansion-panel-header>
             <mat-panel-title>Título: {{ livro.titulo }}</mat-panel-title>

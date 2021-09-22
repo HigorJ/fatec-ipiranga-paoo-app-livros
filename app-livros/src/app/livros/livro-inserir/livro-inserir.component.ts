@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Livro } from '../livro.model';
+import { LivroService } from '../livro.service';
 
 @Component({
   selector: 'app-livro-inserir',
@@ -9,24 +9,22 @@ import { Livro } from '../livro.model';
   styleUrls: ['./livro-inserir.component.css']
 })
 export class LivroInserirComponent {
-  @Output() livroAdicionado = new EventEmitter<Livro>();
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private _snackBar: MatSnackBar, private livroService: LivroService) { }
 
   onAdicionarLivro(livroForm: NgForm) {
-    if(!livroForm.invalid) {
-      this.abrirSnackBar(livroForm.value.titulo);
+    if(livroForm.invalid) return;
 
-      let livro: Livro = {
-        id: livroForm.value.id,
-        titulo: livroForm.value.titulo,
-        autor: livroForm.value.autor,
-        numeroPaginas: livroForm.value.numeroPaginas
-      }
-  
-      this.livroAdicionado.emit(livro);
-      livroForm.resetForm();
-    }
+    this.abrirSnackBar(livroForm.value.titulo);
+
+    this.livroService.adicionarLivro(
+      livroForm.value.id, 
+      livroForm.value.titulo, 
+      livroForm.value.autor, 
+      livroForm.value.numeroPaginas
+    );
+    
+    livroForm.resetForm();
   }
 
   abrirSnackBar(titulo: string) {

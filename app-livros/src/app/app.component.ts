@@ -7,9 +7,5 @@ import { Livro } from './livros/livro.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  livros: Livro[] = [];
 
-  onLivroAdicionado(livro) {
-    this.livros = [...this.livros, livro];
-  }
 }

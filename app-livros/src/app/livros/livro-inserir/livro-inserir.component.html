@@ -37,7 +37,7 @@
                 #titulo="ngModel" />
             
             <button 
-                *ngIf="true" 
+                *ngIf="livroForm.value.titulo" 
                 matSuffix 
                 type="button"
                 (click)="titulo.reset()"
@@ -62,7 +62,7 @@
                             #autor="ngModel" />
                         
                         <button 
-                            *ngIf="true" 
+                            *ngIf="livroForm.value.autor" 
                             matSuffix 
                             mat-icon-button 
                             (click)="autor.reset()"
@@ -86,7 +86,7 @@
                             #numeroPaginas="ngModel" />
                         
                         <button 
-                            *ngIf="true" 
+                            *ngIf="livroForm.value.numeroPaginas" 
                             matSuffix 
                             type="button"
                             (click)="numeroPaginas.reset()"
