@@ -18,7 +18,6 @@ export class LivroInserirComponent {
     this.abrirSnackBar(livroForm.value.titulo);
 
     this.livroService.adicionarLivro(
-      livroForm.value.id, 
       livroForm.value.titulo, 
       livroForm.value.autor, 
       livroForm.value.numeroPaginas

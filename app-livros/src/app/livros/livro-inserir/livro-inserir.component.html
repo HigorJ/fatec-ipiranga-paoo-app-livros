@@ -5,28 +5,6 @@
         </mat-card-title>
 
         <mat-form-field appearance="fill">
-            <mat-label>Número identificador do livro (ID): </mat-label>
-            <input 
-                matInput
-                type="number"
-                required
-                name="id"
-                ngModel
-                #id="ngModel" />
-            
-            <button 
-                *ngIf="livroForm.value.id" 
-                matSuffix 
-                type="button"
-                (click)="id.reset()"
-                mat-icon-button >
-                <mat-icon>close</mat-icon>
-            </button>
-
-            <mat-error>ID do livro é um campo obrigatório</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
             <mat-label>Título do livro</mat-label>
             <input 
                 matInput

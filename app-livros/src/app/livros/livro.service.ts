@@ -21,16 +21,17 @@ export class LivroService {
         });
     }
 
-    adicionarLivro(id: number, titulo: string, autor: string, numeroPaginas: number): void {
+    adicionarLivro(titulo: string, autor: string, numeroPaginas: number): void {
         const livro = {
-            id, 
             titulo, 
             autor, 
             numeroPaginas
         }
 
-        this.livros.push(livro);
-        this.listaLivros.next([...this.livros]);
+        this.httpClient.post<{ mensagem: string }>(this.URL, livro).subscribe(dados => {
+            this.livros.push(livro);
+            this.listaLivros.next([...this.livros]);
+        })
     }
 
     getListaAtualizada() {
