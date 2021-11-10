@@ -11,6 +11,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
  
+import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { LivroInserirComponent } from './livros/livro-inserir/livro-inserir.component';
@@ -25,6 +27,7 @@ import { LivroListComponent } from './livros/livro-list/livro-list.component';
     LivroListComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,

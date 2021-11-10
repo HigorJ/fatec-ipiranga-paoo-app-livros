@@ -27,7 +27,7 @@ export class LivroInserirComponent {
   }
 
   abrirSnackBar(titulo: string) {
-    this._snackBar.open(`O livro ${titulo} foi cadastrado com sucesso!`, "OK");
+    this._snackBar.open(`O livro "${titulo}" foi cadastrado com sucesso!`, "OK");
   }
 
 }

@@ -38,9 +38,17 @@ app.post('/api/livros', (req, res) => {
         numeroPaginas: req.body.numeroPaginas
     });
 
-    livro.save();
+    livro.save().then(livroInserido => {
+        res.status(200).json({
+            id: livroInserido._id
+        });
+    });
+});
 
-    res.status(201).json({ mensagem: "Livro inserido!" });
+app.delete('/api/livros/:id', (req, res, next) => {
+    Livro.deleteOne({ _id: req.params.id }).then((resultado) => {
+        res.status(200).json({ mensagem: "Livro removido com sucesso!" });
+    }) 
 });
 
 module.exports = app;

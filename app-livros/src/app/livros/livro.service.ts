@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Livro } from "./livro.model";
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -14,24 +15,48 @@ export class LivroService {
     constructor(private httpClient: HttpClient) {}
 
     getLivros(): void {
-        this.httpClient.get<{livros: Livro[]}>(this.URL).subscribe(response => {
-            this.livros = response.livros;
+        this.httpClient.get<{livros: any}>(this.URL)
+            .pipe(map((dados) => {
+                return dados.livros.map(livro => {
+                    return {
+                        id: livro._id,
+                        titulo: livro.titulo,
+                        autor: livro.autor,
+                        numeroPaginas: livro.numeroPaginas
+                    }
+                })
+            }))
+            .subscribe(livros => {
+                this.livros = livros;
 
-            this.listaLivros.next([...this.livros]);
-        });
+                this.listaLivros.next([...this.livros]);
+            });
     }
 
     adicionarLivro(titulo: string, autor: string, numeroPaginas: number): void {
         const livro = {
+            id: null,
             titulo, 
             autor, 
             numeroPaginas
         }
 
-        this.httpClient.post<{ mensagem: string }>(this.URL, livro).subscribe(dados => {
+        this.httpClient.post<{ id: string }>(this.URL, livro).subscribe(dados => {
+            livro.id = dados.id;
             this.livros.push(livro);
             this.listaLivros.next([...this.livros]);
         })
+    }
+
+    removerLivro(id: string) {
+        this.httpClient.delete(`${this.URL}/${id}`).subscribe(() => {
+            console.log (`Livro de id: ${id} removido`);
+            this.livros = this.livros.filter((livro) => {
+                return livro.id !== id;
+            });
+
+            this.listaLivros.next([...this.livros]);
+        });
     }
 
     getListaAtualizada() {
