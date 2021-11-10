@@ -11,6 +11,10 @@ const routes: Routes = [
     {
         path: 'criar',
         component: LivroInserirComponent
+    },
+    {
+        path: 'editar/:idLivro',
+        component: LivroInserirComponent
     }
 ]
 

@@ -33,6 +33,15 @@ export class LivroService {
             });
     }
 
+    getLivro(idLivro: string) {
+        return this.httpClient.get<{ 
+            id: string, 
+            titulo: string, 
+            autor: string, 
+            numeroPaginas: number 
+        }>(`${this.URL}/${idLivro}`);
+    }
+
     adicionarLivro(titulo: string, autor: string, numeroPaginas: number): void {
         const livro = {
             id: null,
@@ -46,6 +55,24 @@ export class LivroService {
             this.livros.push(livro);
             this.listaLivros.next([...this.livros]);
         })
+    }
+
+    atualizarLivro(id: string, titulo: string, autor: string, numeroPaginas: number) {
+        const livro: Livro = {
+            id,
+            titulo,
+            autor,
+            numeroPaginas
+        };
+
+        this.httpClient.put(`${this.URL}/${id}`, livro).subscribe((res) => {
+            const copia = [...this.livros];
+            const indice = copia.findIndex(liv => liv.id === livro.id);
+
+            copia[indice] = livro;
+            this.livros = copia;
+            this.listaLivros.next([...this.livros]);
+        });
     }
 
     removerLivro(id: string) {

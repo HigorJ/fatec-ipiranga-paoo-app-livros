@@ -31,6 +31,16 @@ app.get('/api/livros', (req, res) => {
     });
 });
 
+app.get('/api/livros/:id', (req, res, next) => {
+    Livro.findById(req.params.id).then(livro => {
+        if(livro) {
+            res.status(200).json(livro);
+        } else {
+            res.status(404).json({ mensgem: "Livro não encontrado!" });
+        }
+    });
+});
+
 app.post('/api/livros', (req, res) => {
     const livro = new Livro({
         titulo: req.body.titulo,
@@ -44,6 +54,24 @@ app.post('/api/livros', (req, res) => {
         });
     });
 });
+
+app.put('/api/livros/:id', (req, res, next) => {
+    const livro = new Livro({
+        _id: req.params.id,
+        titulo: req.body.titulo,
+        autor: req.body.autor,
+        numeroPaginas: req.body.numeroPaginas
+    });
+
+    Livro.updateOne(
+        { _id: req.params.id },
+        livro
+    ).then((resultado) => {
+        console.log(resultado);
+    });
+
+    res.status(200).json({ mensagem: "Atualização realizada com sucesso!" });
+})
 
 app.delete('/api/livros/:id', (req, res, next) => {
     Livro.deleteOne({ _id: req.params.id }).then((resultado) => {
